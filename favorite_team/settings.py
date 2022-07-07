@@ -1,6 +1,7 @@
 import django_heroku
 from pathlib import Path
 from decouple import config
+from firebase_admin import initialize_app
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'chat',
     'channels',
+    'fcm_django',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -51,6 +53,20 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
+
+GOOGLE_APPLICATION_CREDENTIALS = '../aotg-livechat-firebase-adminsdk-yy6uo-e5e939f358.json'
+
+FCM_DJANGO_SETTINGS = {
+     # default: _('FCM Django')
+    "APP_VERBOSE_NAME": "[string for AppConfig's verbose_name]",
+     # true if you want to have only one active device per registered user at a time
+     # default: False
+    "ONE_DEVICE_PER_USER": True,
+     # devices to which notifications cannot be sent,
+     # are deleted upon receiving error response from FCM
+     # default: False
+    "DELETE_INACTIVE_DEVICES": False,
+}
 
 SITE_ID = 1 
 ACCOUNT_EMAIL_REQUIRED = True
